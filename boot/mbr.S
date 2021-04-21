@@ -51,8 +51,6 @@ rd_disk_m_16:
 
       mov eax,esi	  
 
-
-
       mov dx,0x1f3                       
       out dx,al                          
 
