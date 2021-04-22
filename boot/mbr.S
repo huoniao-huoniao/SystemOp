@@ -11,11 +11,11 @@ SECTION MBR vstart=0x7c00
    mov gs,ax
 
 
-   mov     ax, 0600h
-   mov     bx, 0700h
-   mov     cx, 0                  
-   mov     dx, 184fh		   
-   int     10h                    
+   mov   ax, 0600h
+   mov   bx, 0700h
+   mov   cx, 0                  
+   mov   dx, 184fh		   
+   int   10h                    
 
    mov byte [gs:0x00],'1'
    mov byte [gs:0x01],0xA4
