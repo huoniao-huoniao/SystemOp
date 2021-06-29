@@ -15,6 +15,7 @@ gdt_addr:
                    dd DESC_VIDEO_HIGH4
         GDT_SIZE EQU $-GDT_BASE
         GDT_LIMIT EQU GDT_SIZE-1
+        ;选择子结构
         SELECTOR_CODE EQU (0X0001<<3)+TI_GDT+RPL0
         SELECTOR_DATA EQU (0X0002<<3)+TI_GDT+RPL0
         SELECTOR_VIDEO EQU (0X0003<<3)+TI_GDT+RPL0
@@ -31,7 +32,7 @@ gdt_addr:
         mov  byte [gs:0x02],'1'
         mov  byte [gs:0x03],0xA4
 
-
+        ;BIOS中断
         mov	 sp, LOADER_BASE_ADDR
         mov	 bp, loadermsg           ; ES:BP = 字符串地址
         mov	 cx, 17			 ; CX = 字符串长度
@@ -45,12 +46,16 @@ gdt_addr:
         or al,0000_0010B
         out 0x92,al
         ;-------------------加载GDT
-        lgdt [gdt_ptr]
+        lgdt [gdt_ptr]   ;gdtr
 
         ;-------------------cr0第0位置1
         mov eax,cr0
         or eax,0x00000001
         mov cr0,eax
+        
+        
+
+
 
         jmp SELECTOR_CODE:p_mode_start
 
